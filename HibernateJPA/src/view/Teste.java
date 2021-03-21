@@ -8,28 +8,40 @@ import model.Aluno;
 public class Teste {
 	public static void main(String[] args) {
 		Aluno a1 = new Aluno();
-		a1.setNome("Amanda");
-		a1.setIdade(22);
+		a1.setNome("Natanael");
+		a1.setIdade(23);
 		a1.setMatricula("001");
 		
 		Aluno a2 = new Aluno();
-		a2.setNome("asg");
-		a2.setIdade(25);
+		a2.setNome("Amanda");
+		a2.setIdade(23);
 		a2.setMatricula("002");
 		
 		Aluno a3 = new Aluno();
-		a3.setNome("asgfasg");
-		a3.setIdade(25);
+		a3.setNome("Gabriel");
+		a3.setIdade(20);
 		a3.setMatricula("003");
+		
+		Aluno a4 = new Aluno();
+		a4.setNome("Bruno");
+		a4.setIdade(25);
+		a4.setMatricula("004");
 		
 		//Instancia Controller
 		AlunoController con = new AlunoController();
 		
 		//GRAVA ALUNOS
-//		con.salva(a1);
-//		con.salva(a2);
-//		con.salva(a3);
+		con.salva(a1);
+		con.salva(a2);
+		con.salva(a3);
+		con.salva(a4);
 		
+		//ATUALIZA ALUNO COM ID
+		Aluno alunoAtualizado = new Aluno();
+		alunoAtualizado = con.getAluno(59); //Busca Aluno por Id
+		alunoAtualizado.setNome("Nome Atualizado");
+		con.salva(alunoAtualizado);
+				
 		//REMOVE ALUNO
 //		con.remove(a3);
 		
