@@ -23,8 +23,11 @@ public class AlunoController {
 	public void salva(Aluno aluno) {
 		try {
 			em.getTransaction().begin(); //Inicia transação no banco
-			//em.merge(aluno); //MERGE   Salva objeto no banco
-			em.persist(aluno); //PERSIST Salva objeto no banco
+			if (aluno.getId() == 0) {
+				em.persist(aluno); //PERSIST Salva objeto no banco
+			} else {
+				em.merge(aluno); //MERGE   atualiza objeto no banco
+			}
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println("Erro na Gravação");
@@ -52,7 +55,7 @@ public class AlunoController {
 		List<Aluno> alunos = new ArrayList<Aluno>();
 		try {
 			em.getTransaction().begin();
-			Query sql = em.createQuery("SELECT aluno FROM Aluno aluno");
+			Query sql = em.createQuery("FROM Aluno aluno"); //Utilizando PQL não precisa do SELECT
 			alunos = sql.getResultList();
 		} catch (Exception e) {
 			System.out.println("Erro ao consultar!");
@@ -61,6 +64,18 @@ public class AlunoController {
 			emf.close();
 		}
 		return alunos;
+	}
+	
+	public Aluno getAluno(Integer id) {
+		Aluno aluno = null;
+		try {
+			aluno = em.find(Aluno.class, id);
+		} catch (Exception e) {
+			System.out.println("Erro ao buscar aluno por id " + id);
+		} finally {
+			emf.close();
+		}
+		return aluno;
 	}
 
 }
